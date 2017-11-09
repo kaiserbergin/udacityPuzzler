@@ -2,16 +2,20 @@
 
 namespace Assets.PuzzlerVR.Scripts.MiniGames {
     public class FindTheOne : PuzzlerMiniGame {
-        private int miniGameId;
+        private string miniGameId;
         private int[] inputIds;
         private int inputCount;
         private int theOneId;
         private float timeLimit;
+        private int discoveryCountForWin;
+        private int discoveries;
 
-        public FindTheOne(int miniGameId, int inputCount = 10) {
+        public FindTheOne(string miniGameId = "findTheOne", int inputCount = 10, int discoveryCountForWin = 3) {
             this.miniGameId = miniGameId;
             this.inputCount = inputCount;
+            this.discoveryCountForWin = discoveryCountForWin;
             inputIds = new int[inputCount];
+            discoveries = 0;
             GenerateInputIds();
         }
 
@@ -32,16 +36,20 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
 
         public void InputReceived(int inputId) {
             if(inputId == theOneId) {
-                OnPuzzlerInputReceived(InputResults.PASS, inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.PASS, inputId);
+                discoveries++;
+                if(discoveries == discoveryCountForWin) {
+                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameSolved(miniGameId);
+                }
             }
             else {
-                OnPuzzlerInputReceived(InputResults.FAIL, inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.FAIL, inputId);
             }
         }
 
         public void ValidateTimePassed(float timePassed) {
             if(timePassed >= timeLimit) {
-                OnPuzzlerMiniGameFailed();
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameFailed(miniGameId);
             }
         }
     }

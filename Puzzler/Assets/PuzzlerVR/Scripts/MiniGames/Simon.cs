@@ -2,6 +2,7 @@
 
 namespace Assets.PuzzlerVR.Scripts.MiniGames {
     public class Simon : PuzzlerMiniGame {
+        private string miniGameId;
         private int[] inputIds;
         private int[] inputSequence;
         private int inputCount;
@@ -10,7 +11,8 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
         private int failureThreshold;
         private int failureCount;
 
-        public Simon(int inputCount = 5, int inputSequenceCount = 5, int failureThreshold = 3) {            
+        public Simon(string miniGameId = "simon", int inputCount = 5, int inputSequenceCount = 5, int failureThreshold = 3) {
+            this.miniGameId = miniGameId;
             this.inputCount = inputCount;
             this.inputSequenceCount = inputSequenceCount;
             this.failureThreshold = failureThreshold;
@@ -18,8 +20,28 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
             GenerateInputSequence();
         }
 
+        public string GetMiniGameId() {
+            return miniGameId;
+        }
+
         public int[] GetInputIds() {
             return inputIds;
+        }
+
+        public int GetInputIndex() {
+            return inputIndex;
+        }
+
+        public int[] GetInputSequence() {
+            return inputSequence;
+        }
+
+        public int GetFailureThreshold() {
+            return failureThreshold;
+        }
+
+        public int GetFailureCount() {
+            return failureCount;
         }
 
         private void GenerateInputIds() {
@@ -44,17 +66,17 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
 
         public void VerifyInput(int inputId) {
             if(inputId == inputSequence[inputIndex]) {
-                OnPuzzlerInputReceived(InputResults.PASS, inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.PASS, inputId);
                 inputIndex++;
                 if(inputIndex == inputSequence.Length) {
-                    OnPuzzlerMiniGameSolved();
+                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameSolved(miniGameId);
                 }
             } else {
-                OnPuzzlerInputReceived(InputResults.FAIL, inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.FAIL, inputId);
                 failureCount++;
                 inputIndex = 0;
                 if(failureCount == failureThreshold) {
-                    OnPuzzlerMiniGameFailed();
+                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameFailed(miniGameId);
                 }
             }
         }

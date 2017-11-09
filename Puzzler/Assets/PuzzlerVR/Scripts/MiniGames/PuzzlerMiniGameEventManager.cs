@@ -2,28 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.PuzzlerVR.Scripts.MiniGames {
-    public class PuzzlerMiniGameEventManager {
+    public class PuzzlerMiniGameEventManager : MonoBehaviour {
+        public static PuzzlerMiniGameEventManager instance = null;
         public event EventHandler PuzzlerMiniGameFailed;
         public event EventHandler PuzzlerMiniGameSolved;
         public event EventHandler<PuzzlerMiniGameInputEventArgs> PuzzlerInputReceived;
 
-        protected virtual void OnPuzzlerMiniGameFailed() {
+        private void Awake() {
+            if(instance == null) {
+                instance = this;
+            } else if (instance != this) {
+                Destroy(gameObject);
+            }
+        }
+
+        public virtual void OnPuzzlerMiniGameFailed(string miniGameId) {
             if (PuzzlerMiniGameFailed != null) {
-                PuzzlerMiniGameFailed(this, EventArgs.Empty);
+                PuzzlerMiniGameFailed(this, new PuzzlerMiniGameEventArgs { MiniGameId = miniGameId });
             }
         }
-        protected virtual void OnPuzzlerMiniGameSolved() {
+        public virtual void OnPuzzlerMiniGameSolved(string miniGameId) {
             if (PuzzlerMiniGameSolved != null) {
-                PuzzlerMiniGameSolved(this, EventArgs.Empty);
+                PuzzlerMiniGameSolved(this, new PuzzlerMiniGameEventArgs { MiniGameId = miniGameId });
             }
         }
-        protected virtual void OnPuzzlerInputReceived(InputResults inputResult, int inputId) {
+        public virtual void OnPuzzlerInputReceived(string miniGameId, InputResults inputResult, int inputId) {
             if (PuzzlerInputReceived != null) {
                 PuzzlerInputReceived(
                     this,
                     new PuzzlerMiniGameInputEventArgs() {
+                        MiniGameId = miniGameId,
                         InputResult = inputResult,
                         InputID = inputId
                     }

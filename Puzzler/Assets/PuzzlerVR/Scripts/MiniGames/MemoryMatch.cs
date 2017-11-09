@@ -14,6 +14,7 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
         public int matchValue;
     }
     public class MemoryMatch : PuzzlerMiniGame {
+        private string miniGameId;
         private Coords[] inputCoords;
         private int[] inputIds;
         private int[] matchValues;
@@ -24,7 +25,8 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
         private List<MemoryMatchInput> correctMatches;
         private float timeLimit;
 
-        public MemoryMatch(int gridLength = 4, int gridHeight = 4, float timeLimit = 60f) {
+        public MemoryMatch(string miniGameId = "memoryMatch", int gridLength = 4, int gridHeight = 4, float timeLimit = 60f) {
+            this.miniGameId = miniGameId;
             this.gridLength = gridLength;
             this.gridHeight = gridHeight;
             this.timeLimit = timeLimit;
@@ -97,26 +99,26 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
         public void InputReceived(MemoryMatchInput currentInput) {
             if(lastViewedInput == null) {
                 lastViewedInput = currentInput;
-                OnPuzzlerInputReceived(InputResults.NEUTRAL, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.NEUTRAL, currentInput.inputId);
             } else if(lastViewedInput.inputId == currentInput.inputId) {
                 lastViewedInput = null;
-                OnPuzzlerInputReceived(InputResults.NEUTRAL, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.NEUTRAL, currentInput.inputId);
             } else if(lastViewedInput.matchValue == currentInput.matchValue) {
                 correctMatches.Add(lastViewedInput);
                 correctMatches.Add(currentInput);
-                OnPuzzlerInputReceived(InputResults.PASS, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.PASS, currentInput.inputId);
                 if(correctMatches.Count == inputIds.Length) {
-                    OnPuzzlerMiniGameSolved();
+                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameSolved(miniGameId);
                 }
             } else if(lastViewedInput.matchValue != currentInput.matchValue) {
                 lastViewedInput = null;
-                OnPuzzlerInputReceived(InputResults.FAIL, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.FAIL, currentInput.inputId);
             }
         }
 
         public void ValidateFailureThreshold(float timePassed) {
             if(timePassed >= timeLimit) {
-                OnPuzzlerMiniGameFailed();
+                PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameFailed(miniGameId);
             }
         }
     }
