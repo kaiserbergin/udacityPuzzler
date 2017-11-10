@@ -10,6 +10,8 @@ public class SimonSphere : MonoBehaviour {
     public float InactiveIntensity = 0.1f;
     public float HoverIntensity = 0.6f;
     public float SelectedIntensity = 1.25f;
+    public bool inputRestricted = true;
+    public string queuedState = "inactive";
 
     private Renderer _renderer;
     private MaterialPropertyBlock _materialPropertyBlock;
@@ -20,17 +22,39 @@ public class SimonSphere : MonoBehaviour {
         ApplySphereIntensity("inactive");
     }
 
+    private void Start() {
+        if (PuzzlerMiniGameEventManager.instance != null) {
+            PuzzlerMiniGameEventManager.instance.PuzzlerInputReceived += OnMiniGameInputReceived;
+        }
+    }
+
+    private void OnMiniGameInputReceived(object source, PuzzlerMiniGameInputEventArgs args) {
+        if (args.InputResult == InputResults.PASS && args.MiniGameId == simonMiniGame.miniGameId) {
+            transform.GetComponent<AudioSource>().Play();
+        }
+    }
+
     public void OnInputSelected() {
-        simonMiniGame.simon.VerifyInput(inputId);
-        ApplySphereIntensity("selected");
+        if (!inputRestricted) {
+            simonMiniGame.simon.VerifyInput(inputId);
+            ApplySphereIntensity("selected");
+        }    
     }
 
     public void OnInputHover() {
-        ApplySphereIntensity("hover");
+        if (!inputRestricted) {
+            ApplySphereIntensity("hover");
+        } else {
+            queuedState = "hover";
+        }
     }
 
     public void OnInputExitHover() {
-        ApplySphereIntensity("inactive");
+        if (!inputRestricted) {
+            ApplySphereIntensity("inactive");
+        } else {
+            queuedState = "inactive";
+        }
     }
 
     public void ApplySphereIntensity(string intensity) {

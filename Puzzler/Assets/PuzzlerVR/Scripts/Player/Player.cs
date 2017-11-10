@@ -19,10 +19,10 @@ public class Player : MonoBehaviour {
     }
 
     private void OnMiniGameSolved(object source, PuzzlerMiniGameEventArgs args) {
-        Debug.Log("MiniGameId: " + args.MiniGameId);
+        Debug.Log("Solved MiniGameId: " + args.MiniGameId);
     }
 
     private void OnMiniGameFailed(object source, PuzzlerMiniGameEventArgs args) {
-        Debug.Log("MiniGameId: " + args.MiniGameId);
+        Debug.Log("Failed MiniGameId: " + args.MiniGameId);
     }
 }
