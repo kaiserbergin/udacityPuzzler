@@ -86,7 +86,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1ad04e357ab935a4eb40f545dce30f7d, type: 2}
+  - {fileID: 2100000, guid: a213cf5a9fa951742a96b95428fe202b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -123,6 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 365fd79685df8c3478b921abd9266c0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ChildSphere: {fileID: 1422714794183120}
+  inputId: 0
+  simon: {fileID: 114906871410465790, guid: 35c32d73956b01c45ae1aab97c224559, type: 2}
+  InactiveIntensity: 0.1
+  HoverIntensity: 0.6
+  SelectedIntensity: 1.25
 --- !u!114 &114825347251599166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,7 +146,24 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114146575774040220}
-          m_MethodName: TestItOut
+          m_MethodName: OnInputHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: hover
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
+        Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114146575774040220}
+          m_MethodName: OnInputSelected
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -152,12 +175,12 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.EventSystems.EventTrigger+TriggerEvent, UnityEngine.UI,
         Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  - eventID: 4
+  - eventID: 1
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114146575774040220}
-          m_MethodName: TestItOut
+          m_MethodName: OnInputExitHover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

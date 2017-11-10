@@ -7,8 +7,8 @@ using UnityEngine;
 namespace Assets.PuzzlerVR.Scripts.MiniGames {
     public class PuzzlerMiniGameEventManager : MonoBehaviour {
         public static PuzzlerMiniGameEventManager instance = null;
-        public event EventHandler PuzzlerMiniGameFailed;
-        public event EventHandler PuzzlerMiniGameSolved;
+        public event EventHandler<PuzzlerMiniGameEventArgs> PuzzlerMiniGameFailed;
+        public event EventHandler<PuzzlerMiniGameEventArgs> PuzzlerMiniGameSolved;
         public event EventHandler<PuzzlerMiniGameInputEventArgs> PuzzlerInputReceived;
 
         private void Awake() {
