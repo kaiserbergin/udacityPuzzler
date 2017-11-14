@@ -36,20 +36,20 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
 
         public void InputReceived(int inputId) {
             if(inputId == theOneId) {
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.PASS, inputId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameInputReceived(miniGameId, InputResults.PASS, inputId);
                 discoveries++;
                 if(discoveries == discoveryCountForWin) {
-                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameSolved(miniGameId);
+                    PuzzlerMiniGameEventManager.instance.OnMiniGameSolved(miniGameId);
                 }
             }
             else {
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.FAIL, inputId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameInputReceived(miniGameId, InputResults.FAIL, inputId);
             }
         }
 
         public void ValidateTimePassed(float timePassed) {
             if(timePassed >= timeLimit) {
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameFailed(miniGameId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameFailed(miniGameId);
             }
         }
     }

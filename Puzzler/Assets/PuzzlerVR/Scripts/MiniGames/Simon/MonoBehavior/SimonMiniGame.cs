@@ -21,14 +21,12 @@ public class SimonMiniGame : MonoBehaviour {
 
     private void Awake() {
         inputRestricted = true;
-        sequencePlaying = false;
-        simon = new Simon(miniGameId, inputCount, inputSequenceCount, failureThreshold);
-        inputSequence = simon.GetInputSequence();
-
-        Debug.Log("Simon input sequence: " + string.Join("", new List<int>(simon.GetInputSequence()).ConvertAll(i => i.ToString()).ToArray()));
+        sequencePlaying = false;        
     }
 
     private void Start() {
+        simon = new Simon(PuzzlerMiniGameEventManager.instance, miniGameId, inputCount, inputSequenceCount, failureThreshold);
+        inputSequence = simon.GetInputSequence();
         if (PuzzlerMiniGameEventManager.instance != null) {
             PuzzlerMiniGameEventManager.instance.PuzzlerInputReceived += OnMiniGameInputReceived;
             //PuzzlerMiniGameEventManager.instance.PuzzlerMiniGameSolved += OnMiniGameSolved;

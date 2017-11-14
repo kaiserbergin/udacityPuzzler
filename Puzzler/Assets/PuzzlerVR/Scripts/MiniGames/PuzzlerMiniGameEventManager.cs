@@ -5,7 +5,12 @@ using System.Text;
 using UnityEngine;
 
 namespace Assets.PuzzlerVR.Scripts.MiniGames {
-    public class PuzzlerMiniGameEventManager : MonoBehaviour {
+    public interface IMiniGameEventManager {
+        void OnMiniGameFailed(string miniGameId);
+        void OnMiniGameSolved(string miniGameId);
+        void OnMiniGameInputReceived(string miniGameId, InputResults inputResult, int inputId);
+    }
+    public class PuzzlerMiniGameEventManager : MonoBehaviour, IMiniGameEventManager {
         public static PuzzlerMiniGameEventManager instance = null;
         public event EventHandler<PuzzlerMiniGameEventArgs> PuzzlerMiniGameFailed;
         public event EventHandler<PuzzlerMiniGameEventArgs> PuzzlerMiniGameSolved;
@@ -19,17 +24,17 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
             }
         }
 
-        public virtual void OnPuzzlerMiniGameFailed(string miniGameId) {
+        public virtual void OnMiniGameFailed(string miniGameId) {
             if (PuzzlerMiniGameFailed != null) {
                 PuzzlerMiniGameFailed(this, new PuzzlerMiniGameEventArgs { MiniGameId = miniGameId });
             }
         }
-        public virtual void OnPuzzlerMiniGameSolved(string miniGameId) {
+        public virtual void OnMiniGameSolved(string miniGameId) {
             if (PuzzlerMiniGameSolved != null) {
                 PuzzlerMiniGameSolved(this, new PuzzlerMiniGameEventArgs { MiniGameId = miniGameId });
             }
         }
-        public virtual void OnPuzzlerInputReceived(string miniGameId, InputResults inputResult, int inputId) {
+        public virtual void OnMiniGameInputReceived(string miniGameId, InputResults inputResult, int inputId) {
             if (PuzzlerInputReceived != null) {
                 PuzzlerInputReceived(
                     this,

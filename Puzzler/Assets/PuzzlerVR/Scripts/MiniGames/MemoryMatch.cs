@@ -99,26 +99,26 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
         public void InputReceived(MemoryMatchInput currentInput) {
             if(lastViewedInput == null) {
                 lastViewedInput = currentInput;
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.NEUTRAL, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameInputReceived(miniGameId, InputResults.NEUTRAL, currentInput.inputId);
             } else if(lastViewedInput.inputId == currentInput.inputId) {
                 lastViewedInput = null;
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.NEUTRAL, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameInputReceived(miniGameId, InputResults.NEUTRAL, currentInput.inputId);
             } else if(lastViewedInput.matchValue == currentInput.matchValue) {
                 correctMatches.Add(lastViewedInput);
                 correctMatches.Add(currentInput);
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.PASS, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameInputReceived(miniGameId, InputResults.PASS, currentInput.inputId);
                 if(correctMatches.Count == inputIds.Length) {
-                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameSolved(miniGameId);
+                    PuzzlerMiniGameEventManager.instance.OnMiniGameSolved(miniGameId);
                 }
             } else if(lastViewedInput.matchValue != currentInput.matchValue) {
                 lastViewedInput = null;
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.FAIL, currentInput.inputId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameInputReceived(miniGameId, InputResults.FAIL, currentInput.inputId);
             }
         }
 
         public void ValidateFailureThreshold(float timePassed) {
             if(timePassed >= timeLimit) {
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameFailed(miniGameId);
+                PuzzlerMiniGameEventManager.instance.OnMiniGameFailed(miniGameId);
             }
         }
     }

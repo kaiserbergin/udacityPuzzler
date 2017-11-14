@@ -2,6 +2,7 @@
 
 namespace Assets.PuzzlerVR.Scripts.MiniGames {
     public class Simon : PuzzlerMiniGame {
+        private IMiniGameEventManager miniGameEventManager;
         private string miniGameId;
         private int[] inputIds;
         private int[] inputSequence;
@@ -11,7 +12,8 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
         private int failureThreshold;
         private int failureCount;
 
-        public Simon(string miniGameId = "simon", int inputCount = 5, int inputSequenceCount = 5, int failureThreshold = 3) {
+        public Simon(IMiniGameEventManager miniGameEventManager, string miniGameId = "simon", int inputCount = 5, int inputSequenceCount = 5, int failureThreshold = 3) {
+            this.miniGameEventManager = miniGameEventManager;
             this.miniGameId = miniGameId;
             this.inputCount = inputCount;
             this.inputSequenceCount = inputSequenceCount;
@@ -66,17 +68,17 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
 
         public void VerifyInput(int inputId) {
             if(inputId == inputSequence[inputIndex]) {
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.PASS, inputId);
+                miniGameEventManager.OnMiniGameInputReceived(miniGameId, InputResults.PASS, inputId);
                 inputIndex++;
                 if(inputIndex == inputSequence.Length) {
-                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameSolved(miniGameId);
+                    miniGameEventManager.OnMiniGameSolved(miniGameId);
                 }
             } else {
-                PuzzlerMiniGameEventManager.instance.OnPuzzlerInputReceived(miniGameId, InputResults.FAIL, inputId);
+                miniGameEventManager.OnMiniGameInputReceived(miniGameId, InputResults.FAIL, inputId);
                 failureCount++;
                 inputIndex = 0;
                 if(failureCount == failureThreshold) {
-                    PuzzlerMiniGameEventManager.instance.OnPuzzlerMiniGameFailed(miniGameId);
+                    miniGameEventManager.OnMiniGameFailed(miniGameId);
                 }
             }
         }
