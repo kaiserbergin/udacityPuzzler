@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: 4207326382010340}
   - component: {fileID: 114363665703939100}
   - component: {fileID: 114429888690078806}
+  - component: {fileID: 82119584209729862}
   m_Layer: 0
   m_Name: SimonMiniGame
   m_TagString: Untagged
@@ -257,7 +258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1902196182811610}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4221412151081706}
@@ -567,6 +568,86 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: cb2f5fd9d9623dd4393c697c51de7a51, type: 3}
   m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!82 &82119584209729862
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1902196182811610}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1100,7 +1181,7 @@ MonoBehaviour:
   simonMiniGame: {fileID: 114363665703939100}
   InactiveIntensity: 0.1
   HoverIntensity: 0.6
-  SelectedIntensity: 1.25
+  SelectedIntensity: 1
   inputRestricted: 1
   queuedState: inactive
 --- !u!114 &114363665703939100
@@ -1121,7 +1202,9 @@ MonoBehaviour:
   failureThreshold: 3
   inputRestricted: 0
   sequencePlaying: 0
+  modifiedAudioLength: 1.25
   pauseTimeBetweenSequencePlays: 0.5
+  failSound: {fileID: 8300000, guid: da2778be049c6b043825b59934330759, type: 3}
   simonSpheres:
   - {fileID: 114384924316326130}
   - {fileID: 114958325320847006}
@@ -1144,7 +1227,7 @@ MonoBehaviour:
   simonMiniGame: {fileID: 114363665703939100}
   InactiveIntensity: 0.1
   HoverIntensity: 0.6
-  SelectedIntensity: 1.25
+  SelectedIntensity: 1
   inputRestricted: 1
   queuedState: inactive
 --- !u!114 &114393701964527416
@@ -1302,7 +1385,7 @@ MonoBehaviour:
   simonMiniGame: {fileID: 114363665703939100}
   InactiveIntensity: 0.1
   HoverIntensity: 0.6
-  SelectedIntensity: 1.25
+  SelectedIntensity: 1
   inputRestricted: 1
   queuedState: inactive
 --- !u!114 &114713587205721592
@@ -1385,7 +1468,7 @@ MonoBehaviour:
   simonMiniGame: {fileID: 114363665703939100}
   InactiveIntensity: 0.1
   HoverIntensity: 0.6
-  SelectedIntensity: 1.25
+  SelectedIntensity: 1
   inputRestricted: 1
   queuedState: inactive
 --- !u!114 &114980725777297114
@@ -1404,7 +1487,7 @@ MonoBehaviour:
   simonMiniGame: {fileID: 114363665703939100}
   InactiveIntensity: 0.1
   HoverIntensity: 0.6
-  SelectedIntensity: 1.25
+  SelectedIntensity: 1
   inputRestricted: 1
   queuedState: inactive
 --- !u!135 &135204306075189808
