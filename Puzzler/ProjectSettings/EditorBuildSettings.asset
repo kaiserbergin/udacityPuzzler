@@ -8,15 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/PuzzlerVR/Scenes/Main Scene.unity
     guid: 8de232e49a7e85147ae5c4d1476cf11c
-  - enabled: 1
+  - enabled: 0
     path: Assets/PuzzlerVR/Scenes/Test/Test Space.unity
     guid: 292de91d0fa28c64893cef7dd861b97a
-  - enabled: 1
+  - enabled: 0
     path: Assets/PuzzlerVR/Scenes/Rooms/Forest.unity
     guid: 7c7830b12c8a2e344897b4393e9ce6ca
-  - enabled: 1
+  - enabled: 0
     path: Assets/PuzzlerVR/Scenes/MiniGames/Simon.unity
     guid: 05962094195f367478952776a22de5d5
-  - enabled: 1
+  - enabled: 0
     path: Assets/PuzzlerVR/Scenes/Rooms/HoloDeck.unity
     guid: 1bf2e996ab70043478e860550eb81043

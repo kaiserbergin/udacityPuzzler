@@ -83,6 +83,10 @@ namespace Assets.PuzzlerVR.Scripts.MiniGames {
             }
         }
 
+        public void ClearInputs() {
+            inputIndex = 0;
+        }
+
         public void Restart() {
             ShuffleInputSequence();
         }
